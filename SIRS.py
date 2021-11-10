@@ -319,7 +319,7 @@ class SIRS(object):
         #Set range of fractions
         immune_frac_range = np.arange(0.0, 0.51, 0.01)
 
-        #Data collection arrays 
+        #Data collection arrays
         infected = np.empty((reruns, len(immune_frac_range)))
         infected_square = np.empty((reruns, len(immune_frac_range)))
 
@@ -364,9 +364,12 @@ class SIRS(object):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 7:
+    if len(sys.argv) != 8:
         print("Incorrect Number of Arguments Presented.")
-        print("Usage: " + sys.argv[0] + "lattice Size, Number of sweeps, infection prob, recovery prob, suceptible prob, imune fraction")
+        print("Usage: " + sys.argv[0] + "lattice Size, Number of sweeps, infection prob, recovery prob, suceptible prob, imune fraction, mode")
+        quit()
+    elif sys.argv[7] not in ['infected fraction', 'immune fraction', 'animate']:
+        print('Please choose one of the following \n infected fraction, immune fraction, animate')
         quit()
     else:
         shape = int(sys.argv[1])
@@ -375,9 +378,13 @@ if __name__ == "__main__":
         r_prob = float(sys.argv[4])
         s_prob = float(sys.argv[5])
         frac_im = float(sys.argv[6])
+        mode = sys.argv[7]
 
 
     model = SIRS(shape, sweeps, i_prob, r_prob, s_prob, frac_im)
-    #model.run_infected_fraction()
-    #model.run_immune_fraction()
-    model.run_animation()
+    if mode == 'infected fraction':
+        model.run_infected_fraction()
+    elif mode == 'immune_fraction':
+        model.run_immune_fraction()
+    elif mode == 'animate':
+        model.run_animation()
