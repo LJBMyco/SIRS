@@ -357,7 +357,9 @@ class SIRS(object):
     def run_animation(self):
         fig, ax = plt.subplots()
         self.mat = ax.imshow(self.lattice, cmap = 'seismic')
-        fig.colorbar(self.mat)
+        cbar = fig.colorbar(self.mat)
+        cbar.set_ticks([0.0, 1.0, 2.0, 3.0, 4.0])
+        cbar.set_ticklabels(["S", "I", "R", "Im"])
         ani = FuncAnimation(fig, self.animate, interval= 1, blit = False)
 
         plt.show()
